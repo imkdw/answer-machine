@@ -1,0 +1,5 @@
+export { encodeAnswer, encodeBody } from './encode'
+export { decodeAnswer, decodeBody, type DecodedAnswer } from './decode'
+export { normalizeAnswer, validateAnswer, answerLength, MAX_ANSWER_LENGTH } from './normalize'
+export { DICTIONARY, PRESETS } from './dictionary'
+export { DEFAULT_INTENSITY, type Intensity } from './header'

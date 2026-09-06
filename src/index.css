@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0b0b12;
+  --fg: #f4f4ff;
+  --accent: #ff2d95;
+  --accent2: #2dffea;
+  --font: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+.theme-silent {
+  filter: grayscale(1) contrast(1.15) sepia(0.15);
+}
+.theme-silent::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0 2px, transparent 2px 4px);
+  animation: flicker 0.12s steps(2) infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.9; }
+  100% { opacity: 1; }
+}
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  20% { transform: translate(-6px, 2px) rotate(-2deg); }
+  40% { transform: translate(6px, -2px) rotate(2deg); }
+  60% { transform: translate(-4px, 1px) rotate(-1deg); }
+  80% { transform: translate(4px, -1px) rotate(1deg); }
+}
+.shake { animation: shake 0.35s ease-in-out; }
+.shake-forever { animation: shake 0.25s ease-in-out infinite; }
+
+@keyframes blink { 50% { opacity: 0; } }
+.blink { animation: blink 0.8s step-end infinite; }
+
+@keyframes marquee {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+.marquee { animation: marquee 6s linear infinite; white-space: nowrap; }
+
+.scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 3px);
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-bold select-none transition active:scale-95;
+  background: var(--accent);
+  color: var(--bg);
+  touch-action: manipulation;
+}
+.btn-ghost {
+  @apply inline-flex items-center justify-center rounded-xl px-4 py-2 font-semibold select-none transition active:scale-95;
+  border: 2px solid color-mix(in srgb, var(--fg) 40%, transparent);
+  color: var(--fg);
+  touch-action: manipulation;
+}
+.answer-text {
+  font-size: clamp(1.75rem, 6vw + 0.5rem, 4rem);
+  line-height: 1.25;
+  font-weight: 900;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+/* 예능 자막 테마: 노란 글씨에 검은 외곽선 */
+.theme-yenung .answer-text,
+.theme-yenung h1,
+.theme-yenung h2 {
+  -webkit-text-stroke: 1.5px #000;
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 #000;
+}
+
+/* 예능 자막 오버레이 */
+.meme-caption {
+  font-family: "Black Han Sans", "Jalnan", Impact, "Arial Black", "Malgun Gothic", system-ui, sans-serif;
+  font-weight: 900;
+  color: #fff200;
+  -webkit-text-stroke: 2px #000;
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 #000, 0 0 18px rgba(0, 0, 0, 0.6);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+@keyframes caption-pop {
+  0% { transform: scale(0) rotate(-8deg); opacity: 0; }
+  60% { transform: scale(1.25) rotate(3deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-2deg); opacity: 1; }
+}
+.caption-pop { animation: caption-pop 0.35s cubic-bezier(0.2, 1.6, 0.4, 1) both; }
+
+@keyframes glitch {
+  0% { clip-path: inset(0 0 90% 0); transform: translate(-4px, 0); }
+  20% { clip-path: inset(30% 0 40% 0); transform: translate(4px, 0); }
+  40% { clip-path: inset(60% 0 10% 0); transform: translate(-3px, 0); }
+  60% { clip-path: inset(10% 0 70% 0); transform: translate(3px, 0); }
+  80% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 0); }
+  100% { clip-path: inset(0 0 90% 0); transform: translate(0, 0); }
+}
+.glitch { position: relative; }
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.glitch::before { color: #ff2d95; animation: glitch 0.6s steps(1) infinite; }
+.glitch::after { color: #2dffea; animation: glitch 0.6s steps(1) infinite reverse; }
+
+@keyframes rainbow-bg {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+.rainbow { animation: rainbow-bg 2s linear infinite; }
+
+/* 2016년 인스타 필터 느낌: 따뜻한 톤 + 비네팅 */
+.theme-2016 {
+  filter: sepia(0.25) saturate(1.35) contrast(1.05);
+}
+.theme-2016::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
+}
