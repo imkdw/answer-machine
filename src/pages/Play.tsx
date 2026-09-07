@@ -108,7 +108,7 @@ export default function Play({ code }: Props): React.JSX.Element {
           <motion.p animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.6 }} className="relative z-10 mt-3 text-base">
             {waitSub}
           </motion.p>
-          <p className="absolute bottom-8 z-10 text-xs opacity-40">약 10초 소요 (거짓말일 수 있음)</p>
+          <p className="absolute bottom-8 z-10 text-xs opacity-40">약 30초 소요 (거짓말일 수 있음)</p>
         </button>
       ) : (
         <ScenePlayer

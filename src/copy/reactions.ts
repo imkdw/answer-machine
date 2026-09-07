@@ -14,7 +14,7 @@ export const SKIP_REACTIONS = {
     ...MEME_SKIP_LINES.rejected,
   ],
   patience: ['축하합니다. 인내심 테스트 통과. 상으로 씬 하나 더 드림', '7번이나 눌렀네요. 존경합니다. 하나 더 보세요', ...MEME_SKIP_LINES.patience],
-  toast: ['연출 3초 추가됨', '보너스 연출 적립', '+3초 (본인 부담)', '+3초 (완전 럭키비키잖아)'],
+  toast: ['연출 5초 추가됨', '보너스 연출 적립', '+5초 (본인 부담)', '+5초 (완전 럭키비키잖아)'],
 } as const
 
 export const HELPFUL_REACTIONS = {

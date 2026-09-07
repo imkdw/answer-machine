@@ -5,6 +5,8 @@ import type { AudioBus } from '../audio/AudioBus'
 import { SkipButton } from './SkipButton'
 import { pickExtraScene } from './scenePicker'
 import { MemeCaption } from './MemeCaption'
+import { BaitLayer } from './BaitLayer'
+import { TapBurst } from './TapBurst'
 
 interface Props {
   scenes: Scene[]
@@ -98,6 +100,8 @@ export function ScenePlayer({ scenes, allScenes, answer, audio, rng, bgmIndex, o
       </AnimatePresence>
 
       <MemeCaption rng={sceneRng} sceneKey={`${current.id}-${idx}`} enabled={!revealed} />
+      <BaitLayer rng={sceneRng} sceneKey={`${current.id}-${idx}`} enabled={!revealed} audio={audio} onExtend={extendTime} />
+      <TapBurst />
 
       {!revealed && (
         <SkipButton audio={audio} count={skipCount} onPress={setSkipCount} onExtend={extendTime} onExtraScene={addExtraScene} />

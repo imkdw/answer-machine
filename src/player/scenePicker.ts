@@ -29,10 +29,11 @@ interface IntensityProfile {
   forced: string[]
 }
 
+// 2026-09: "꼴받는 게 너무 빨리 끝난다"는 피드백으로 전체 상향. 강도 2 기준 대략 30~40초.
 const PROFILES: Record<Intensity, IntensityProfile> = {
-  1: { min: 1, max: 2, budgetMin: 6000, budgetMax: 12000, forced: [] },
-  2: { min: 2, max: 3, budgetMin: 10000, budgetMax: 18000, forced: [] },
-  3: { min: 3, max: 4, budgetMin: 15000, budgetMax: 26000, forced: ['tripleConfirm'] },
+  1: { min: 2, max: 3, budgetMin: 14000, budgetMax: 22000, forced: [] },
+  2: { min: 4, max: 5, budgetMin: 26000, budgetMax: 38000, forced: [] },
+  3: { min: 6, max: 7, budgetMin: 40000, budgetMax: 58000, forced: ['tripleConfirm'] },
 }
 
 const RARITY_MULTIPLIER = { common: 1, rare: 0.12, legendary: 0 } as const
@@ -88,7 +89,7 @@ function buildOnce(scenes: Scene[], opts: PickOptions): string[] {
   const profile = PROFILES[opts.intensity]
   const extra = opts.extraScenes ?? 0
   const targetCount = profile.min + Math.floor(rng() * (profile.max - profile.min + 1)) + extra
-  const budget = profile.budgetMin + rng() * (profile.budgetMax - profile.budgetMin) + extra * 4000
+  const budget = profile.budgetMin + rng() * (profile.budgetMax - profile.budgetMin) + extra * 6000
 
   const opener = weightedPick(scenes.filter((s) => hasTag(s, 'opener')), rng)
   const reveal = weightedPick(scenes.filter((s) => hasTag(s, 'reveal')), rng)

@@ -87,9 +87,9 @@ interface SceneProps {
 - 시드 없이 매번 `Math.random()`으로 뽑는다. 같은 URL도 매번 다르다.
 - 조합 규칙:
   - opener 1개
-  - buildup / fakeout / chaos 중 2~3개, 같은 씬 중복 없음, 같은 태그 연속 지양
+  - buildup / fakeout / chaos 중 4~5개 (강도 2 기준. 1은 2~3개, 3은 6~7개), 같은 씬 중복 없음, 같은 태그 연속 지양
   - reveal 1개
-- 총 길이 예산 8~15초. 뽑은 씬들의 duration 합이 예산 안에 들도록 채운다.
+- 총 길이 예산 26~38초 (강도 2). 뽑은 씬들의 duration 합이 예산 안에 들도록 채운다. 2026-09에 "너무 빨리 끝난다"는 피드백으로 상향.
 - 직전 재생 조합을 sessionStorage에 두고 "다시 보기"에서는 다른 조합이 나오게 한다.
 - 희귀도:
   - common: 대부분

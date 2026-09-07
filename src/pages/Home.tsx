@@ -4,7 +4,7 @@ import { PRESETS, encodeAnswer, validateAnswer, answerLength, MAX_ANSWER_LENGTH,
 import { toast } from '../player/Toast'
 import { navigate } from '../router'
 
-const INTENSITY_LABELS: Record<Intensity, string> = { 1: '1 (살짝)', 2: '2 (기본)', 3: '3 (꼴받음 MAX)' }
+const INTENSITY_LABELS: Record<Intensity, string> = { 1: '1 (살짝, 20초쯤)', 2: '2 (기본, 35초쯤)', 3: '3 (MAX, 1분 가까이)' }
 
 /** 작성자 화면. 여기서는 장난 안 침. 정상 동작. */
 export default function Home(): React.JSX.Element {

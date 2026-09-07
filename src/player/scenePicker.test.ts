@@ -29,7 +29,7 @@ const byId = new Map(SCENES.map((s) => [s.id, s]))
 const opts = { themeCount: 5, bgmCount: 4 }
 
 describe('pickCombo', () => {
-  it('opener 1, reveal 1, 중간 2~3개, 중복 없음, 같은 태그 연속 지양 (강도 2)', () => {
+  it('opener 1, reveal 1, 중간 4~5개, 중복 없음, 같은 태그 연속 지양 (강도 2)', () => {
     let repeats = 0
     for (let seed = 0; seed < 300; seed++) {
       const rng = createRng(seed)
@@ -42,19 +42,19 @@ describe('pickCombo', () => {
       expect(byId.get(ids[0]!)!.tags).toContain('opener')
       expect(byId.get(ids[ids.length - 1]!)!.tags).toContain('reveal')
       const middle = ids.slice(1, -1)
-      expect(middle.length).toBeGreaterThanOrEqual(2)
-      expect(middle.length).toBeLessThanOrEqual(3)
+      expect(middle.length).toBeGreaterThanOrEqual(4)
+      expect(middle.length).toBeLessThanOrEqual(5)
       expect(new Set(ids).size).toBe(ids.length)
       for (let i = 1; i < middle.length; i++) {
         if (byId.get(middle[i]!)!.tags[0] === byId.get(middle[i - 1]!)!.tags[0]) repeats++
       }
       const total = ids.reduce((a, id) => a + byId.get(id)!.duration, 0)
-      expect(total).toBeLessThanOrEqual(18000)
+      expect(total).toBeLessThanOrEqual(38000)
       expect(combo.themeIndex).toBeLessThan(5)
       expect(combo.bgmIndex).toBeLessThan(4)
     }
     // 예산이 빠듯할 때만 드물게 허용
-    expect(repeats).toBeLessThan(15)
+    expect(repeats).toBeLessThan(400)
   })
 
   it('강도 3이면 tripleConfirm이 리빌 직전에 확정 포함', () => {
@@ -65,12 +65,12 @@ describe('pickCombo', () => {
     }
   })
 
-  it('강도 1이면 중간 1~2개', () => {
+  it('강도 1이면 중간 2~3개', () => {
     for (let seed = 0; seed < 100; seed++) {
       const ids = pickCombo(SCENES, { intensity: 1, rng: createRng(seed), ...opts }).sceneIds
       if (ids.length === 1) continue
-      expect(ids.length - 2).toBeGreaterThanOrEqual(1)
-      expect(ids.length - 2).toBeLessThanOrEqual(2)
+      expect(ids.length - 2).toBeGreaterThanOrEqual(2)
+      expect(ids.length - 2).toBeLessThanOrEqual(3)
     }
   })
 

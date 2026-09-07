@@ -72,6 +72,16 @@ export const SCENES: Scene[] = [
   reg('tetoEgen', ['fakeout'], 6000, () => import('./scenes/meme/TetoEgen'), { weight: 0.9 }),
   reg('kakaoRead', ['buildup'], 5500, () => import('./scenes/meme/KakaoRead'), { weight: 1.3 }),
 
+  // 3D 인터랙티브 씬 (2026-09). 탭/홀드로 조작되지만 결과는 항상 꼴받음
+  reg('danceChallenge', ['chaos'], 9000, () => import('./scenes/interactive/DanceChallenge'), { weight: 1.8 }),
+  reg('clawMachine', ['fakeout'], 9000, () => import('./scenes/interactive/ClawMachine'), { weight: 1.4 }),
+  reg('slotMachine', ['fakeout'], 8500, () => import('./scenes/interactive/SlotMachine'), { weight: 1.3 }),
+  reg('rouletteWheel', ['buildup'], 9000, () => import('./scenes/interactive/RouletteWheel'), { weight: 1.4 }),
+  reg('rhythmGame', ['chaos'], 9000, () => import('./scenes/interactive/RhythmGame'), { weight: 1.3 }),
+  reg('whackAMole', ['chaos'], 8500, () => import('./scenes/interactive/WhackAMole'), { weight: 1.3 }),
+  reg('coinFlip', ['buildup'], 8000, () => import('./scenes/interactive/CoinFlip'), { weight: 1.3 }),
+  reg('holdToSkip', ['fakeout'], 8000, () => import('./scenes/interactive/HoldToSkip'), { weight: 1.2 }),
+
   // reveal
   reg('galaxyReveal', ['reveal'], 4500, () => import('./scenes/reveal/GalaxyReveal'), { weight: 1.5 }),
   reg('cubeReveal', ['reveal'], 4000, () => import('./scenes/reveal/CubeReveal'), { weight: 1.2 }),

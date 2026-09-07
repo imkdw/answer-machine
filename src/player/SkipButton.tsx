@@ -8,7 +8,7 @@ interface Props {
   audio: AudioBus
   count: number
   onPress: (nextCount: number) => void
-  /** 2회: 연출 3초 추가 */
+  /** 2회: 연출 5초 추가 */
   onExtend: (ms: number) => void
   /** 7회: 씬 하나 추가 */
   onExtraScene: () => void
@@ -50,7 +50,7 @@ export function SkipButton({ audio, count, onPress, onExtend, onExtraScene }: Pr
     } else if (n === 2) {
       toast(pick(SKIP_REACTIONS.second))
       window.setTimeout(() => toast(pick(SKIP_REACTIONS.toast)), 700)
-      onExtend(3000)
+      onExtend(5000)
       audio.sfx('error')
       shake()
     } else if (n === 3) {
