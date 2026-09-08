@@ -27,11 +27,13 @@ export function ScenePlayer({ scenes, allScenes, answer, audio, rng, bgmIndex, o
   const [idx, setIdx] = useState(0)
   const [skipCount, setSkipCount] = useState(0)
   const [revealed, setRevealed] = useState(false)
+  const [ready, setReady] = useState(false)
   const doneRef = useRef(false)
   const pendingExt = useRef(0)
 
   useEffect(() => {
     doneRef.current = false
+    setReady(false)
   }, [idx])
 
   useEffect(() => {
@@ -56,9 +58,11 @@ export function ScenePlayer({ scenes, allScenes, answer, audio, rng, bgmIndex, o
     doneRef.current = true
     const ext = pendingExt.current
     pendingExt.current = 0
-    if (ext > 0) window.setTimeout(advance, ext)
-    else advance()
-  }, [advance])
+    // 리빌은 그대로 열고, 씬 사이 이동은 사용자가 눌러야 넘어간다
+    const finish = isLast ? advance : (): void => setReady(true)
+    if (ext > 0) window.setTimeout(finish, ext)
+    else finish()
+  }, [advance, isLast])
 
   const extendTime = useCallback((ms: number): void => {
     pendingExt.current += ms
@@ -103,9 +107,33 @@ export function ScenePlayer({ scenes, allScenes, answer, audio, rng, bgmIndex, o
       <BaitLayer rng={sceneRng} sceneKey={`${current.id}-${idx}`} enabled={!revealed} audio={audio} onExtend={extendTime} />
       <TapBurst />
 
-      {!revealed && (
+      {!revealed && !ready && (
         <SkipButton audio={audio} count={skipCount} onPress={setSkipCount} onExtend={extendTime} onExtraScene={addExtraScene} />
       )}
+
+      <AnimatePresence>
+        {ready && !revealed && (
+          <motion.button
+            key="next"
+            type="button"
+            autoFocus
+            onClick={advance}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-40 flex cursor-pointer items-end justify-center pb-20"
+            aria-label="다음"
+          >
+            <motion.span
+              className="btn text-base shadow-lg"
+              animate={{ scale: [1, 1.06, 1] }}
+              transition={{ repeat: Infinity, duration: 1.4 }}
+            >
+              다음 →
+            </motion.span>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {revealed && (

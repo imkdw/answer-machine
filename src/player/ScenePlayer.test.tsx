@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { ScenePlayer } from './ScenePlayer'
 import { createSilentAudioBus } from '../audio/AudioBus'
 import type { Scene, SceneProps } from './types'
@@ -35,7 +35,14 @@ describe('ScenePlayer', () => {
     )
     expect(screen.getByTestId('scene-op')).toBeTruthy()
     expect(screen.queryByTestId('footer')).toBeNull()
+
+    // 시간이 지나도 자동으로 넘어가지 않고 "다음" 버튼만 뜬다
+    const next1 = await screen.findByLabelText('다음', {}, { timeout: 2000 })
+    expect(screen.getByTestId('scene-op')).toBeTruthy()
+    fireEvent.click(next1)
     expect(await screen.findByTestId('scene-mid', {}, { timeout: 2000 })).toBeTruthy()
+
+    fireEvent.click(await screen.findByLabelText('다음', {}, { timeout: 2000 }))
     expect(await screen.findByText('ㅇㅋ 가자', {}, { timeout: 2000 })).toBeTruthy()
     const footer = await screen.findByTestId('footer', {}, { timeout: 2000 })
     expect(footer.textContent).toBe('skip:0')
